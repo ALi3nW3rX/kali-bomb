@@ -1,4 +1,5 @@
-# kali-bomb
-App installer for fresh Kali VM installs.
 
-This is an on going project. It does work but very minimally at the moment.
+![artboard (4)](https://user-images.githubusercontent.com/56691594/176804000-5ac7b615-75c2-47e0-b0de-0b0b16fff99a.png)
+
+# kali-bomb.sh 
+work in progress.
