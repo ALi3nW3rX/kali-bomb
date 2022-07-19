@@ -10,5 +10,14 @@
 - Fixing broken tools or dependencies
 - More to come as the project develops
  
+## Current List of Tools
+
+- Joplin
+- Terminator
+- Flameshot
+- Vcode
+- Seghide
+- Venom
+- Autorecon (Only available in dev right now. Has not been fully tested)
 
 ***kali is an ongoing work in progress. I am building it as I go to add more tools.***
