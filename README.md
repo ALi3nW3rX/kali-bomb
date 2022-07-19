@@ -3,3 +3,13 @@
 
 # kali-bomb.sh 
 work in progress.
+
+List of apps that can be installed as of right now
+
+Joplin
+Terminator
+Flameshot
+Vcode
+Seghide
+Venom
+Autorecon
