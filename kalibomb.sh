@@ -209,7 +209,38 @@ install_sublime () {
     eval echo "deb [signed-by=/usr/local/share/keyrings/sublime-text.gpg] https://download.sublimetext.com/ apt/stable/" > /etc/apt/sources.list.d/sublime-text.list
     apt_update && apt_update_complete
     eval apt -y install sublime-text
+    echo -e "\n  [+]  Sublime - installed "
 	fi
+}
+
+#Install AutoRecon
+install_autorecon () {
+	if [[ -f /home/kali/.local/bin ]]; then
+		echo -e "\n $WRN: $BIWhite AutoRecon Already Installed. . . Skipping Install "
+	else
+	echo -e "\n $greenplus installing AutoRecon"
+	echo -e "\n $greenplus Updating. . ."
+	apt_update && apt_update_complete
+	eval apt install python3
+	eval apt install python3-pip
+	echo -e "\ $greenplus Installing SecLists. . ."
+	fi
+
+	if [[ -f /usr/bin/seclists ]]; then
+		echo -e "\n $WRN: $BIWhite SecLists Already Installed. . . Skipping "
+	fi
+
+	eval apt install seclists
+	echo -e "\n $greenplus Checking and Installing any Missing Dependicies. . ."
+	eval sudo apt install seclists curl enum4linux feroxbuster gobuster impacket-scripts nbtscan nikto nmap onesixtyone oscanner redis-tools smbclient smbmap snmp sslscan sipvicious tnscmd10g whatweb wkhtmltopdf
+	eval apt install python3-venv
+	eval python3 -m pip install --user pipx
+	eval python3 -m pipx ensurepath
+	eval source ~/.zshrc
+	eval source ~/.bashrc
+	eval pipx install git+https://github.com/Tib3rius/AutoRecon.git
+	echo -e "\n  [+]  AutoRecon - installed "
+	
 }
 
 #Install Venom
@@ -235,6 +266,7 @@ install_all () {
 	install_vscode
 	install_steghide
 	install_venom
+	install_autorecon
 	echo -e "$banner"
 	echo -e "\n YOU'VE BEEN KALI BOMBED!! ENJOY!!"
 }
@@ -250,7 +282,7 @@ install_all () {
 helpbanner=$(base64 -d <<< "H4sIAAAAAAAAA7VSWw7DIAz75xT+WytN40JI7kFy+CUOj3Xt37RAKcbGdaSWAgJgLCpqDqDCTfEK
 eeGKwVB9ZDnauGOisG5X67j0BefR4sI7rd2FIjgDO6LITE9pYhsEcdLJsoNUhreXR6vgAbOcecdG
 bud8NTyIY20blg76oHSyEB253dlPNtrw/ug1cge3J9FHEPtJl6eepS66NLds7tDIpyfQHHdapKr5
-rtl3PsaXiKnLFE1NRB+iy91f8Gv11v/jna2X8gaicgPS4wIAAA=="  | gunzip)
+rtl3PsaXiKnLFE1NRB+iy91f8Gv11v/jna2X8gaicgPS4wIAAA=="  | gunzip) 
 
 banner=$(base64 -d <<< "H4sIAAAAAAAAA6WQUQ7DMAhD/zmF/9ZK03IhJPcgHH4GknbS+jFphKYB8+oqZiAA5lbBylVU4Ca6
 aYHA0OpQtXHHWSXr32xCE25WY6wuT0tVLLH9WTN5TIEFK/TxAR6I6Gw4lrM07YEHcVxHL2ehHtgY
@@ -279,8 +311,11 @@ help_menu () {
 #Main Menu
 kali_bomb_menu(){
 	clear
+	if [[ /usr/local/bin/lolcat ]]; then
+		echo -e "$banner" | lolcat
+	else
 	echo -e "\033[1;91m $banner \e[0m"
-
+	fi
 	echo -e "\n   Menu Options:                Description:"
 	echo -e "   -------------                ------------"
 	echo -e "1. KALI BOMB!                   INSTALLS EVERYTHING!"
@@ -290,6 +325,8 @@ kali_bomb_menu(){
 	echo -e "5. Install Joplin               Structured Note App"
 	echo -e "6. Install Sublime              Coding Program"
 	echo -e "7. Install Steghide             Decode and Decrypt Photo's"
+	echo -e "8. Install AutoRecon            IP,Port,Vuln Scanner"
+
 
 	echo
 	read -n1 -p "Please select a menu option or type "X" to quit: " menuitems
@@ -302,6 +339,7 @@ kali_bomb_menu(){
 		5)install_joplin;;
 		6)install_sublime;;
 		7)install_steghide;;
+		8)install_autorecon;;
 		h|H)help_menu;;
 		x|X) echo -e "\n Kali Bomb OUT!!!";;
 		*)kali_bomb_menu;;
